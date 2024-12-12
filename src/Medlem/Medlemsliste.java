@@ -9,6 +9,7 @@ public class Medlemsliste {
     public Medlemsliste() {
         medlemmer = new ArrayList<>();
         læsMedlemmerFraFil();
+
     }
 
     // Læs medlemmer fra filen

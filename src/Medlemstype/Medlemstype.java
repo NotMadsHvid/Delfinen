@@ -96,6 +96,13 @@ public class Medlemstype {
     }
 
 
+
+
+
+
+
+
+
     public void opdaterKategorisering() {
         Medlemstype medlemstype = new Medlemstype();
         medlemstype.kategoriserMedlem("src/Medlem/Medlemsliste.txt");

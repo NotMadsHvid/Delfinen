@@ -1,2 +1,11 @@
-
-VirkNu;12-12-2024;false;false;Junior;Ingen hold
+Navn;Fødselsdato;Aktiv;Konkurrencesvønner;Aldersgruppe;Hold;Kontingent;Betalt
+hoved;12-11-2022;true;true;Junior;Juniorhold;1000,00;false
+skulder;15-10-2010;true;true;Junior;Juniorhold;1000,00;false
+passiv;12-12-2012;false;false;Junior;Ingen hold;500,00;false
+gammel;12-12-1999;true;true;Senior;Seniorhold;1600,00;false
+rabat;10-10-1950;true;true;Senior;Seniorhold;1200,00;false
+Joe;12-12-2010;true;true;Junior;Juniorhold;1000,00;false
+Johan;11-10-2000;true;false;Senior;Ingen hold;1600,00;false
+fixx;01-02-2003;true;true;Senior;Seniorhold;1600,00;false
+johan;12-11-2013;true;true;Junior;Juniorhold;1000,00;false
+test;01-01-2001;true;true;Senior;Seniorhold;1600,00;false
