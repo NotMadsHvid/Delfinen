@@ -1,3 +1,4 @@
+
 package Medlemstype;
 import java.io.File;
 import java.io.FileWriter;
@@ -27,10 +28,10 @@ public class Medlemstype {
             // Opretter scanner til at læse filen
             Scanner scanner = new Scanner(new File(filsti));
 
-            //Sørger for at skippe overskriften når den skal læse informationer fra filen
+            // Sørger for at skippe overskriften når den skal læse informationer fra filen
             if (scanner.hasNextLine()) {
                 String header = scanner.nextLine().trim();
-                opdateredeLinjer.add(header);
+                opdateredeLinjer.add(header); // Add header to the updated lines
             }
 
             // Tjekker hvilke medlemmer som mangler at få tilføjet medlemstyper og tilføjer dem derefter.
@@ -39,10 +40,10 @@ public class Medlemstype {
                 if (linje.isEmpty()) continue;
 
                 String[] data = linje.split(";");
-                //tjekker for at der er i hvertfald 4 fields i tekstfilen, hvis der ikke er 4 eller flere fields, så sletter den medlemmet.
+                // Tjekker for at der er mindst 4 fields i tekstfilen, hvis der ikke er 4 eller flere, så sletter den medlemmet.
                 if (data.length < 4) continue;
 
-                //skriver de variabler der skal printes ind i filen og giver dem en placering samt formaterer det på den ønskede måde.
+                // Skriv de variabler der skal printes ind i filen og giver dem en placering samt formaterer det på den ønskede måde.
                 String navn = data[0];
                 String[] fødselsdato = data[1].split("-");
                 boolean aktivtmedlem = Boolean.parseBoolean(data[2]);
@@ -55,17 +56,15 @@ public class Medlemstype {
                 // Opretter medlem for beregning
                 Medlem medlem = new Medlem(navn, fødselsDag, fødselsMåned, fødselsÅr, aktivtmedlem, konkurrencesvømmer);
 
-                //Bestemmer alderskategori
+                // Bestemmer alderskategori
                 String alderskategori;
                 if (medlem.beregnAlder() < 18) {
-                    juniormedlem = true;
                     alderskategori = "Junior";
                 } else {
-                    seniormedlem = true;
                     alderskategori = "Senior";
                 }
 
-                //Bestemmer hold
+                // Bestemmer hold
                 String hold = "Ingen hold";
                 if (konkurrencesvømmer) {
                     if (medlem.beregnAlder() < 18) {
@@ -75,13 +74,23 @@ public class Medlemstype {
                     }
                 }
 
-                //Laver en variable med formateringen og de ønskede variabler og tilføjer den til en arrayliste
+                // Prepare the updated line
                 String opdateretLinje = String.format("%s;%s;%b;%b;%s;%s", navn, data[1], aktivtmedlem, konkurrencesvømmer, alderskategori, hold);
+
+                // Ensure that data[6] and data[7] are added if they exist
+                String data6 = data.length >= 7 ? data[6] : ""; // In case data[6] exists
+                String data7 = data.length >= 8 ? data[7] : ""; // In case data[7] exists
+
+                // Append data6 and data7 (if available)
+                opdateretLinje += ";" + data6 + ";" + data7;
+
+                // Add the updated line to the list
                 opdateredeLinjer.add(opdateretLinje);
             }
 
             scanner.close();
 
+            // Write the updated lines back to the file
             try (PrintWriter writer = new PrintWriter(new FileWriter(filsti))) {
                 for (String opdateretLinje : opdateredeLinjer) {
                     writer.println(opdateretLinje);
@@ -94,6 +103,8 @@ public class Medlemstype {
             System.out.println("Fejl ved filhåndtering: " + e.getMessage());
         }
     }
+
+
 
 
 

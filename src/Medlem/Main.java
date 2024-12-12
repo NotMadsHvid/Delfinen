@@ -9,8 +9,8 @@ public class Main {
         medlemsliste.tilføjMedlem();
         medlemstype.opdaterKategorisering();
         kontingent.opdaterKontingent();
-        medlemsliste.getMedlemslisteInfo();
-        kontingent.setBetalt("src/Medlem/Medlemsliste.txt");
+        //medlemsliste.getMedlemslisteInfo();
+        //kontingent.setBetalt("src/Medlem/Medlemsliste.txt");
         kontingent.beregnTotalKontingent(medlemsliste);
         //kontingent.iRestance(medlemsliste);
     }

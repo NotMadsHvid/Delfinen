@@ -16,7 +16,6 @@ public class Kontingent {
     boolean aktivseniorRabat;
     //boolean aktivseniorRabat = totalKontingent * 0.75;
     double totalKontingent = 0;
-    boolean erBetalt;
 
 
     public Kontingent() {
@@ -24,7 +23,6 @@ public class Kontingent {
         this.passivtmedlem = passivtmedlem;
         this.aktivseniorRabat = aktivseniorRabat;
         this.totalKontingent = totalKontingent;
-        this.erBetalt = false;
     }
 
     public void setKontingent(String filsti) {
@@ -35,48 +33,29 @@ public class Kontingent {
 
             if (scanner.hasNextLine()) {
                 String header = scanner.nextLine().trim();
-                opdateredeLinjer.add(header);
+                opdateredeLinjer.add(header); // Add header to the updated lines
             }
 
             while (scanner.hasNextLine()) {
                 String linje = scanner.nextLine().trim();
                 if (linje.isEmpty()) continue;
 
-
                 String[] data = linje.split(";");
-                //tjekker for at der er i hvertfald 6 fields i tekstfilen, hvis der ikke er 6 eller flere fields, så sletter den medlemmet.
-                if (data.length < 6) continue;
+                // Check if there are at least 7 fields (adjusted for your new format)
+                if (data.length < 6) continue; // Skip lines with fewer than 7 fields
+
                 String navn = data[0];
                 String[] fødselsdato = data[1].split("-");
                 boolean aktivtmedlem = Boolean.parseBoolean(data[2]);
                 boolean konkurrencesvømmer = Boolean.parseBoolean(data[3]);
                 String alderskategori = data[4];
                 String hold = data[5];
-                double kontingent = 0;
+                double kontingent = 0; // Default value
+                boolean erBetalt = false;
 
-
-
-                if (data.length >= 7) {
-                    // Replace comma with period in the Kontingent value and parse it
-                    kontingent = Double.parseDouble(data[6].replace(",", ".").trim());
-
-                    // Check if erBetalt is already true, only update it if it's not already true
-                    if ("true".equalsIgnoreCase(data[7].trim())) {
-                        // If 'true' in the data, set erBetalt to true
-                        if (!erBetalt) {  // Only update if it wasn't true already
-                            erBetalt = true;
-                        }
-                    }
-
-                    // If there is a 'Betalt' field (data length >= 8), parse it
-//                 if (data.length >= 8) {
-//                      erBetalt = Boolean.parseBoolean(data[7].trim()); // Update erBetalt from the file
-//                   }
-                }
-
-                 else {
-                    // Handle the case where there are fewer than 7 fields
-                    System.out.println("Data format error: Missing Kontingent value in line");
+                // Handle 'erBetalt' if data[7] exists and is not empty
+                if (data.length >= 8 && !data[7].isEmpty()) {
+                    erBetalt = "true".equalsIgnoreCase(data[7].trim()); // Check if 'true'
                 }
 
                 int fødselsDag = Integer.parseInt(fødselsdato[0]);
@@ -84,31 +63,30 @@ public class Kontingent {
                 int fødselsÅr = Integer.parseInt(fødselsdato[2]);
 
                 Medlem medlem = new Medlem(navn, fødselsDag, fødselsMåned, fødselsÅr, aktivtmedlem, konkurrencesvømmer);
-
                 int alder = medlem.beregnAlder();
 
-
+                // Beregn kontingent baseret på medlemsstatus og alder
                 if (aktivtmedlem) {
                     if (alder < 18) {
-                        totalKontingent = 1000;  // Junior members
+                        kontingent = 1000;  // Junior members
                     } else {
-                        totalKontingent = 1600;  // Senior members
+                        kontingent = 1600;  // Senior members
                         if (alder > 60) {
-                            totalKontingent = 1600 * 0.75;  // Senior discount
+                            kontingent = 1600 * 0.75;  // Senior discount
                         }
                     }
                 } else {
                     // If not an active member, set Kontingent to 500
-                    totalKontingent = 500;
+                    kontingent = 500;
                 }
-                if (kontingent != 0) {
-                    totalKontingent = kontingent;
-                }
-                String opdateretLinje = String.format("%s;%s;%b;%b;%s;%s;%.2f;%b", navn, data[1], aktivtmedlem, konkurrencesvømmer, alderskategori, hold, totalKontingent, erBetalt);
+
+                // Add the updated line with the correct 'erBetalt' value
+                String opdateretLinje = String.format("%s;%s;%b;%b;%s;%s;%.2f;%b", navn, data[1], aktivtmedlem, konkurrencesvømmer, alderskategori, hold, kontingent, erBetalt);
                 opdateredeLinjer.add(opdateretLinje);
             }
             scanner.close();
 
+            // Skriv de opdaterede linjer tilbage til filen
             try (PrintWriter writer = new PrintWriter(new FileWriter(filsti))) {
                 for (String opdateretLinje : opdateredeLinjer) {
                     writer.println(opdateretLinje);
@@ -121,6 +99,8 @@ public class Kontingent {
             System.out.println("Fejl ved filhåndtering: " + e.getMessage());
         }
     }
+
+
 
     public void opdaterKontingent() {
         Kontingent kontingent = new Kontingent();
@@ -214,14 +194,11 @@ public class Kontingent {
         // Print the total Kontingent for all members
         System.out.println("Forventet kontigentindbetaling: " + totalKontingent + " kr.");
     }
-    public void iRestance(Medlemsliste medlemsliste){
-        for (Medlem medlem : medlemsliste.getMedlemmer()) {
-           if (!erBetalt) {
-                System.out.println(medlem);
-
-            }
-        }
-
-    }
+//    public void iRestance(Medlemsliste medlemsliste) {
+//        for (Medlem medlem : medlemsliste.getMedlemmer()) {
+//            if (!medlem.isErBetalt()) {
+//                System.out.println(medlem);
+//            }
+//        }
+//    }
 }
-
