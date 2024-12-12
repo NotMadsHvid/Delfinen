@@ -1,11 +1,7 @@
 package Medlem;
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import Medlemstype.Medlemstype;
-import Resultat.Resultater;
-
 
 public class Medlem {
     // Attributes
@@ -13,27 +9,21 @@ public class Medlem {
     private static int totalMedlemsID = 0;
     private String navn;
     private LocalDate fødselsDato;
-    private Medlemstype medlemstype;
-    private ArrayList<Resultater> medlemsResultater;
+    //private Medlemstype medlemstype;
+    private boolean aktivtMedlem;
+    private boolean konkurrenceSvømmer;
 
 
     // Constructor
-    public Medlem(String navn, int fødselsDag, int fødselsMåned, int fødselsÅr,
-                  boolean juniormedlem, boolean aktivtmedlem, boolean konkurrencesvømmer, int medlemsID) {
+    public Medlem(String navn, int fødselsDag, int fødselsMåned, int fødselsÅr, boolean aktivtMedlem, boolean konkurrenceSvømmer) {
         this.navn = navn;
         this.fødselsDato = LocalDate.of(fødselsÅr, fødselsMåned, fødselsDag);
-        this.medlemstype = new Medlemstype(juniormedlem, aktivtmedlem, konkurrencesvømmer);
+        this.aktivtMedlem = aktivtMedlem;
+        this.konkurrenceSvømmer = konkurrenceSvømmer;
+        //this.medlemstype = new Medlemstype(juniormedlem, aktivtmedlem, konkurrencesvømmer);
         this.medlemsID = totalMedlemsID + 1; // Initialiser medlemsID
         totalMedlemsID++;
 
-
-        if(konkurrencesvømmer){
-            this.medlemsResultater = new ArrayList<>();
-        }
-    }
-
-    public ArrayList<Resultater> getMedlemsResultat(){
-        return medlemsResultater;
     }
 
     // En getter til at få hele fødsels datoen på et medlem
@@ -48,7 +38,13 @@ public class Medlem {
 
     // Getter for medlemsID
     public int getMedlemsID(){
-        return this.medlemsID;
+        return medlemsID;
+    }
+    public boolean getAktiv(){
+        return aktivtMedlem;
+    }
+    public boolean getKonkurrencesvømmer(){
+        return konkurrenceSvømmer;
     }
 
     //Metode til at returnere info om medlemmet
