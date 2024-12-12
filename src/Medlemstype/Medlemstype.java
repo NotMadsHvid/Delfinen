@@ -10,13 +10,15 @@ public class Medlemstype {
     private boolean aktivtmedlem;
     private boolean passivtmedlem;
     private boolean seniorrabat;
-    private boolean konkurrencesvømmer;
+    boolean konkurrencesvømmer;
 //Laver vores constructor
 public Medlemstype(boolean juniormedlem, boolean aktivtmedlem, boolean konkurrencesvømmer){
     this.juniormedlem = juniormedlem;
     this.aktivtmedlem = aktivtmedlem;
     this.konkurrencesvømmer = konkurrencesvømmer;
 }
+
+
 //laver en metode som kategoriserer medlemmerne
 public void kategoriserMedlem(Medlem medlem){
     if (medlem.opdaterendeAlder() < 18){

@@ -4,22 +4,36 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import Medlemstype.Medlemstype;
+import Resultat.Resultater;
 
 
 public class Medlem {
     // Attributes
     private int medlemsID;
+    private static int totalMedlemsID = 0;
     private String navn;
     private LocalDate fødselsDato;
     private Medlemstype medlemstype;
+    private ArrayList<Resultater> medlemsResultater;
 
 
     // Constructor
-    public Medlem(String navn, int fødselsDag, int fødselsMåned, int fødselsÅr, boolean juniormedlem, boolean aktivtmedlem, boolean konkurrencesvømmer, int medlemsID) {
+    public Medlem(String navn, int fødselsDag, int fødselsMåned, int fødselsÅr,
+                  boolean juniormedlem, boolean aktivtmedlem, boolean konkurrencesvømmer, int medlemsID) {
         this.navn = navn;
         this.fødselsDato = LocalDate.of(fødselsÅr, fødselsMåned, fødselsDag);
         this.medlemstype = new Medlemstype(juniormedlem, aktivtmedlem, konkurrencesvømmer);
-        this.medlemsID = medlemsID; // Initialiser medlemsID
+        this.medlemsID = totalMedlemsID + 1; // Initialiser medlemsID
+        totalMedlemsID++;
+
+
+        if(konkurrencesvømmer){
+            this.medlemsResultater = new ArrayList<>();
+        }
+    }
+
+    public ArrayList<Resultater> getMedlemsResultat(){
+        return medlemsResultater;
     }
 
     // En getter til at få hele fødsels datoen på et medlem
@@ -34,7 +48,7 @@ public class Medlem {
 
     // Getter for medlemsID
     public int getMedlemsID(){
-        return medlemsID;
+        return this.medlemsID;
     }
 
     //Metode til at returnere info om medlemmet
