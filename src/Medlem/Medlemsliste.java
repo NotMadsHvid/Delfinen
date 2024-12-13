@@ -2,6 +2,7 @@ package Medlem;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import Resultat.Resultater;
 
 public class Medlemsliste {
     //private  static int næsteID = 1; // Statisk tæller for unikke ID'er
@@ -124,16 +125,21 @@ public class Medlemsliste {
     // Constructor
 
     // Fjern et medlem baseret på medlemsID
-    public boolean fjernMedlem(int medlemsID) {
+    public void fjernMedlem() {
+        System.out.print("Indtast medlemsID: ");
+        Scanner scanner = new Scanner(System.in);
+        int medlemsID = scanner.nextInt();
+        boolean fundetMedlem = false;
+
         for (Medlem medlem : medlemmer) {
             if (medlem.getMedlemsID() == medlemsID) {
-                medlemmer.remove(medlem);
                 System.out.println("Medlem med ID " + medlemsID + " er blevet fjernet");
-                return true;
+                medlemmer.remove(medlem);
+                fundetMedlem = true;
+                break;
             }
-        }
-        System.out.println("Medlems med ID " + medlemsID + " blev ikke fundet.");
-        return false;
+        } if (!fundetMedlem)
+        System.out.println("Medlem med ID " + medlemsID + " blev ikke fundet.");
     }
 
 

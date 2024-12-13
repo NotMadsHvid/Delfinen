@@ -1,10 +1,19 @@
 package Menu;
 
+import Medlem.Medlemsliste;
+import Resultat.Resultater;
+import Kontingent.Kontingent;
+import Medlemstype.Medlemstype;
 import java.util.Scanner;
+
 public class MenuOversigt {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void Menu() {
+        Medlemsliste medlemsliste = new Medlemsliste();
+        Medlemstype medlemstype = new Medlemstype();
+        Kontingent kontingent = new Kontingent();
+        Resultater resultat = new Resultater(0.0, "0", true, false);
         boolean running = true;
 
         System.out.print("Velkommen til svømmeklubben Delfin. Vælg en af følgende valgmuligheder: ");
@@ -12,7 +21,6 @@ public class MenuOversigt {
         //Loop til brugergrænseoverfladen.
         while (running) {
             visBrugergrænseflade();
-
 
             try {
                 String input = scanner.nextLine();
@@ -22,30 +30,31 @@ public class MenuOversigt {
                     case 1:
                         boolean runningMedlemlisteMenu = true;
 
-
                         while (runningMedlemlisteMenu) {
                             MedlemlisteMenu();
-
 
                             try {
                                 String MedlemlisteInput = scanner.nextLine();
                                 int MedlemlisteValg = Integer.parseInt(MedlemlisteInput);
 
                                 switch (MedlemlisteValg) {
-
                                     case 1:
-                                        System.out.println("1.");
-                                        //Kode Her!
+                                        //Opret medlem
+                                        System.out.println("--- Opret medlem ---");
+                                        medlemsliste.tilføjMedlem();
+                                        medlemstype.opdaterKategorisering();
                                         break;
-
                                     case 2:
-                                        System.out.println("2");
-                                        //Kode Her!
+                                        //Se medlemsliste
+                                        System.out.println("--- Liste af medlemsoversigt ---");
+                                        medlemsliste.getMedlemslisteInfo();
                                         break;
-
                                     case 3:
-                                        System.out.println("3");
-                                        //Kode her!
+                                        //Fjern medlem
+                                        System.out.println("--- Fjern medlem ---");
+                                        medlemsliste.getMedlemslisteInfo();
+                                        medlemsliste.fjernMedlem();
+                                        System.out.print("► ");
                                         break;
                                     case 4:
                                         runningMedlemlisteMenu = false;
@@ -59,7 +68,7 @@ public class MenuOversigt {
                         }
                         break;
 
-                    // Menu til at se oversigt af svømmeresultater (
+                    // Menu til at se oversigt af svømmeresultater
                     case 2:
                         boolean runningSvømmeresultat = true;
 
@@ -71,23 +80,20 @@ public class MenuOversigt {
                                 int svømmeResultatValg = Integer.parseInt(svømmeResultatInput);
 
                                 switch (svømmeResultatValg) {
+                                    //Se træningsresultater
                                     case 1:
-                                        System.out.println("1");
-                                        //Kode Her!
+                                        System.out.println("--- Liste af svømmesresultater ---");
+                                        resultat.SeKonkurrenceResultat();
                                         break;
                                     case 2:
-                                        System.out.println("2");
-                                        //Kode Her!
+                                        System.out.println("--- Tilføj svømmeresultater ---");
+                                        resultat.tilføjKonkurrenceResultat();
                                         break;
                                     case 3:
-                                        System.out.println("3");
-                                        //Kode Her!
-                                        break;
-                                    case 4:
                                         runningSvømmeresultat = false;
                                         break;
                                     default:
-                                        System.out.println("Forket Input. Prøv igen");
+                                        System.out.println("Forkert input. Prøv igen");
                                 }
                             } catch (Exception e) {
                                 System.out.println("Forkert Input. Prøv Igen.");
@@ -95,30 +101,30 @@ public class MenuOversigt {
                         }
                         break;
 
-                    //Menu til kontigent
+                    //Menu til kontingent
                     case 3:
-                        boolean runningKontigentMenu = true;
+                        boolean runningKontingentMenu = true;
 
-                        while (runningKontigentMenu) {
+                        while (runningKontingentMenu) {
                             visKontingentMenu();
 
                             try {
-                                String kontigentInput = scanner.nextLine();
-                                int valgKontigent = Integer.parseInt(kontigentInput);
+                                String kontingentInput = scanner.nextLine();
+                                int valgKontingent = Integer.parseInt(kontingentInput);
 
-                                switch (valgKontigent) {
+                                switch (valgKontingent) {
                                     case 1:
-                                        //Vis forventet kontigent
-                                        System.out.println("1");
-                                        //Kode Her!
+                                        //Vis forventet kontingent
+                                        System.out.println("--- Liste af Kontingent ---");
+                                        kontingent.beregnTotalKontingent(medlemsliste);
                                         break;
                                     case 2:
                                         //Vis restance
-                                        System.out.println("2");
-                                        //Kode her!
+                                        System.out.println("--- Liste af restance ---");
+                                        kontingent.iRestance(medlemsliste);
                                         break;
                                     case 3:
-                                        runningKontigentMenu = false;
+                                        runningKontingentMenu = false;
                                         break;
                                     default:
                                         System.out.println("Forkert input. Prøv igen.");
@@ -151,16 +157,18 @@ public class MenuOversigt {
         System.out.println(" ");
         System.out.println("1: Se medlemsliste.");
         System.out.println("2: Se svømmeresultater.");
-        System.out.println("3: Se Kontigent.");
+        System.out.println("3: Se Kontingent.");
         System.out.println("4: Afslut.");
     }
 
     //Metode til kontigent menuen
     public static void visKontingentMenu() {
         System.out.println(" ");
-        System.out.println("1: Vis forventet kontigent.");
+        System.out.println("--- Kontingent Menu ---");
+        System.out.println("1: Vis forventet kontingent.");
         System.out.println("2: Vis restance.");
         System.out.println("3: Tilbage til hovedmenu.");
+        System.out.print("► ");
     }
 
     public static void MedlemlisteMenu() {
@@ -173,9 +181,10 @@ public class MenuOversigt {
 
     public static void visResultatMenu() {
         System.out.println(" ");
-        System.out.println("1: ");
-        System.out.println("2: ");
-        System.out.println("3: ");
-        System.out.println("4: Tilbage til hovedmenu.");
+        System.out.println("--- Resultat Menu ---");
+        System.out.println("1: Vis resultat");
+        System.out.println("2: Tilføj resultat");
+        System.out.println("3: Tilbage til hovedmenu");
+        System.out.print("► ");
     }
 }

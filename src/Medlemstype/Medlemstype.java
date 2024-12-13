@@ -1,4 +1,5 @@
 package Medlemstype;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import Medlem.Medlem;
+import Resultat.Resultater;
 
 //Laver vores klasse
 public class Medlemstype {
@@ -65,7 +67,7 @@ public class Medlemstype {
                     alderskategori = "Senior";
                 }
 
-                //Bestemmer hold
+                //Bestemmer hold og svømmeresultater
                 String hold = "Ingen hold";
                 if (konkurrencesvømmer) {
                     if (medlem.beregnAlder() < 18) {
@@ -74,6 +76,8 @@ public class Medlemstype {
                         hold = "Seniorhold";
                     }
                 }
+
+
 
                 //Laver en variable med formateringen og de ønskede variabler og tilføjer den til en arrayliste
                 String opdateretLinje = String.format("%s;%s;%b;%b;%s;%s", navn, data[1], aktivtmedlem, konkurrencesvømmer, alderskategori, hold);
