@@ -1,3 +1,4 @@
+
 package Medlem;
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,6 +15,7 @@ public class Medlem {
     private boolean konkurrenceSvømmer;
 
 
+
     // Constructor
     public Medlem(String navn, int fødselsDag, int fødselsMåned, int fødselsÅr, boolean aktivtMedlem, boolean konkurrenceSvømmer) {
         this.navn = navn;
@@ -23,6 +25,7 @@ public class Medlem {
         //this.medlemstype = new Medlemstype(juniormedlem, aktivtmedlem, konkurrencesvømmer);
         this.medlemsID = totalMedlemsID + 1; // Initialiser medlemsID
         totalMedlemsID++;
+
 
     }
 
@@ -46,6 +49,12 @@ public class Medlem {
     public boolean getKonkurrencesvømmer(){
         return konkurrenceSvømmer;
     }
+//    public boolean isErBetalt() {
+//        return this.erBetalt;
+//    }
+//    public void setErBetalt(boolean erBetalt) {
+//        this.erBetalt = erBetalt;
+//    }
 
     //Metode til at returnere info om medlemmet
     public String getInfo () {
@@ -57,7 +66,7 @@ public class Medlem {
     @Override
     public String toString () {
         DateTimeFormatter danskFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return "MedlemsID: " + medlemsID + "Navn: " + navn + ", Fødselsdato: " + fødselsDato.format(danskFormat);
+        return "MedlemsID: " + medlemsID + " Navn: " + navn + ", Fødselsdato: " + fødselsDato.format(danskFormat);
     }
 
     // Beregner alder baseret på nuværende dato

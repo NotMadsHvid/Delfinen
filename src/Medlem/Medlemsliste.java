@@ -1,3 +1,4 @@
+
 package Medlem;
 import java.io.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Medlemsliste {
     public Medlemsliste() {
         medlemmer = new ArrayList<>();
         læsMedlemmerFraFil();
+
     }
 
     // Læs medlemmer fra filen
