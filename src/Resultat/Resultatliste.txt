@@ -1,0 +1,2 @@
+30,000000;Hej;true;false
+300,000000;Crawl;false;true
