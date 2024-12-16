@@ -13,17 +13,19 @@ public class Medlem {
     //private Medlemstype medlemstype;
     private boolean aktivtMedlem;
     private boolean konkurrenceSvømmer;
+    private boolean erBetalt;
 
 
 
     // Constructor
-    public Medlem(String navn, int fødselsDag, int fødselsMåned, int fødselsÅr, boolean aktivtMedlem, boolean konkurrenceSvømmer) {
+    public Medlem(String navn, int fødselsDag, int fødselsMåned,
+                  int fødselsÅr, boolean aktivtMedlem, boolean konkurrenceSvømmer) {
         this.navn = navn;
         this.fødselsDato = LocalDate.of(fødselsÅr, fødselsMåned, fødselsDag);
         this.aktivtMedlem = aktivtMedlem;
         this.konkurrenceSvømmer = konkurrenceSvømmer;
         //this.medlemstype = new Medlemstype(juniormedlem, aktivtmedlem, konkurrencesvømmer);
-        this.medlemsID = totalMedlemsID + 1; // Initialiser medlemsID
+        this.medlemsID = ++totalMedlemsID;  // Initialiser medlemsID ( Unikt ID)
         totalMedlemsID++;
     }
 
@@ -47,12 +49,12 @@ public class Medlem {
     public boolean getKonkurrencesvømmer(){
         return konkurrenceSvømmer;
     }
-//    public boolean isErBetalt() {
-//        return this.erBetalt;
-//    }
-//    public void setErBetalt(boolean erBetalt) {
-//        this.erBetalt = erBetalt;
-//    }
+    public boolean isErBetalt() {
+       return this.erBetalt;
+    }
+    public void setErBetalt(boolean erBetalt) {
+       this.erBetalt = false; // Standardværdi
+   }
 
     //Metode til at returnere info om medlemmet
     public String getInfo () {
