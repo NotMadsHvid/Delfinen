@@ -25,8 +25,6 @@ public class Medlem {
         //this.medlemstype = new Medlemstype(juniormedlem, aktivtmedlem, konkurrencesvømmer);
         this.medlemsID = totalMedlemsID + 1; // Initialiser medlemsID
         totalMedlemsID++;
-
-
     }
 
     // En getter til at få hele fødsels datoen på et medlem

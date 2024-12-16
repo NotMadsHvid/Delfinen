@@ -155,10 +155,12 @@ public class MenuOversigt {
     //Metode start menu oversigten
     public static void visBrugergrænseflade() {
         System.out.println(" ");
+        System.out.println("--- Hovedmenu ---");
         System.out.println("1: Se medlemsliste.");
         System.out.println("2: Se svømmeresultater.");
         System.out.println("3: Se Kontingent.");
         System.out.println("4: Afslut.");
+        System.out.print("► ");
     }
 
     //Metode til kontigent menuen
@@ -173,10 +175,12 @@ public class MenuOversigt {
 
     public static void MedlemlisteMenu() {
         System.out.println(" ");
-        System.out.println("1: Vis medlemsliste");
-        System.out.println("2: Opret nyt medlem");
+        System.out.println("--- Medlems Menu ---");
+        System.out.println("1: Opret medlem.");
+        System.out.println("2: Vis medlemsliste.");
         System.out.println("3: Slet medlem.");
         System.out.println("4: Tilbage til hovedmenu. ");
+        System.out.print("► ");
     }
 
     public static void visResultatMenu() {

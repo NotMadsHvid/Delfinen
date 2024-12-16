@@ -61,7 +61,7 @@ public class Kontingent {
                 int fødselsÅr = Integer.parseInt(fødselsdato[2]);
 
                 Medlem medlem = new Medlem(navn, fødselsDag, fødselsMåned, fødselsÅr,
-                        aktivtmedlem, konkurrencesvømmer, erBetalt);
+                        aktivtmedlem, erBetalt);
                 int alder = medlem.beregnAlder();
 
                 // Beregn kontingent baseret på medlemsstatus og alder
